@@ -115,7 +115,7 @@ class Box:
 def display_image(screen, image_path, position, block_size):
     # Load the image
     image = pygame.image.load(image_path)
-    pygame.transform.scale(image, size)
+    image = pygame.transform.scale(image, size)
 
     # Draw the image on the screen at the specified position
     screen.blit(image, position)
