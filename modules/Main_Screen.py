@@ -10,7 +10,7 @@ from modules.Textbox import *
 from modules.Accounts import *
 from modules.Load_Game import *
 from modules.Maze_Generator import *
-from modules.Maze_Solver import *
+from modules.maze_solver import *
 from modules.Hero import *
 from modules.Leaderboard import *
 
