@@ -24,7 +24,7 @@ def main(cfg):
 	# pygame.mixer.music.play(-1, 0.0)
 	screen = pygame.display.set_mode(cfg.SCREENSIZE)
 	pygame.display.set_caption('2D MAZE')
-	font = pygame.font.SysFont('Consolas', 15)
+	font = pygame.font.SysFont('resources/fonts/OpenSans-Regular', 20)
 	
 	Siuu, Username, Password = UserInterface(screen, cfg, 'interface')
 	

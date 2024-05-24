@@ -14,6 +14,8 @@ def UserInterface(screen, cfg, mode):
     if mode == 'interface':
         while True:
             screen.fill((192, 192, 192))
+            BackGround = Background('resources/images/tamvagiahuy.png', [0, 0])
+            screen.blit(BackGround.image, BackGround.rect)
             login_button = Button(screen, ((cfg.SCREENSIZE[0]-200)//2, cfg.SCREENSIZE[1]//3), 'LOGIN', font)
             register_button = Button(screen, ((cfg.SCREENSIZE[0]-200)//2, cfg.SCREENSIZE[1]//2), 'REGISTER', font)
             exit_button = Button(screen, ((cfg.SCREENSIZE[0]-200)//2, (cfg.SCREENSIZE[1]//2+(cfg.SCREENSIZE[1]//2-cfg.SCREENSIZE[1]//3))), 'EXIT', font)
@@ -40,6 +42,8 @@ def UserInterface(screen, cfg, mode):
         password_box = TextBox(screen, ((cfg.SCREENSIZE[0]-200)//2, cfg.SCREENSIZE[1]//2), (200, 50))
         while True:
             screen.fill((192, 192, 192))
+            BackGround = Background('resources/images/tamvagiahuy.png', [0, 0])
+            screen.blit(BackGround.image, BackGround.rect)
             login_button = Button(screen, ((cfg.SCREENSIZE[0]-200)//2,(cfg.SCREENSIZE[1]//2)+(cfg.SCREENSIZE[1]//2-cfg.SCREENSIZE[1]//3)), 'LOGIN', font)
             return_button = Button(screen, ((cfg.SCREENSIZE[0]-200)//2, (cfg.SCREENSIZE[1]//2)+2*(cfg.SCREENSIZE[1]//2-cfg.SCREENSIZE[1]//3)), 'RETURN', font)
             expanded_login_button = login_button.inflate(130, 130)  
@@ -80,6 +84,8 @@ def UserInterface(screen, cfg, mode):
         confirm_password_box = TextBox(screen, ((cfg.SCREENSIZE[0]-200)//2, (cfg.SCREENSIZE[1]//2)+(cfg.SCREENSIZE[1]//2-cfg.SCREENSIZE[1]//3)), (200, 50))
         while True:
             screen.fill((192, 192, 192))
+            BackGround = Background('resources/images/tamvagiahuy.png', [0, 0])
+            screen.blit(BackGround.image, BackGround.rect)
             register_button = Button(screen, ((cfg.SCREENSIZE[0]-200)//2, (cfg.SCREENSIZE[1]//2)+2*(cfg.SCREENSIZE[1]//2-cfg.SCREENSIZE[1]//3)), 'REGISTER', font)
             return_button = Button(screen, ((cfg.SCREENSIZE[0]-700)//2, (cfg.SCREENSIZE[1]//2)+2*(cfg.SCREENSIZE[1]//2-cfg.SCREENSIZE[1]//3)), 'RETURN', font)
             expanded_register_button = register_button.inflate(130, 130)

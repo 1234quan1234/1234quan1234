@@ -5,7 +5,7 @@ import sys
 from modules.Main_Screen import *
 from modules.Maze_Generator import *
 from modules.Hero import *
-from modules.Maze_Solver import *
+from modules.maze_solver import *
 from modules.Login_System import *
 from modules.Load_Game import *
 oak_wood_color = (139, 69, 19) 

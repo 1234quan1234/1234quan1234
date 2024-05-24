@@ -112,14 +112,13 @@ class Box:
         pygame.draw.rect(self.screen, self.color, self.rect)
         # Draw the border
         pygame.draw.rect(self.screen, self.border_color, self.rect, self.border_width)
-def display_image(screen, image_path, position, block_size):
+def display_resized_image(screen, image_path, position, block_size):
+    size = (block_size, block_size)
     # Load the image
     image = pygame.image.load(image_path)
     image = pygame.transform.scale(image, size)
-
     # Draw the image on the screen at the specified position
     screen.blit(image, position)
-
     # Update the display
     pygame.display.flip()
 class Background(pygame.sprite.Sprite):
