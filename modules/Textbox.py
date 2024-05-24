@@ -10,7 +10,7 @@ def showText(screen, font, text, color, position):
 
 
 '''Button'''
-def Button(screen, position, text, font, buttoncolor=(120, 120, 120), clickedcolor=(90, 90, 90), linecolor=(20, 20, 20), textcolor=(255, 255, 255), bwidth=200, bheight=50):
+def Button(screen, position, text, font, buttoncolor=(242, 197, 40), clickedcolor=(90, 90, 90), linecolor=(20, 20, 20), textcolor=(255, 255, 255), bwidth=200, bheight=50):
     left, top = position
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()

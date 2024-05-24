@@ -202,7 +202,7 @@ def Interface_Game_Play(screen, cfg, font, clock, maze_now, maze_solver, hero_no
             pygame.display.update()
     saving = None
     while True:
-        dt = clock.tick(cfg.FPS)
+            dt = clock.tick(cfg.FPS)
         screen.fill(oak_wood_color)
         is_move = False
         if A_On:
