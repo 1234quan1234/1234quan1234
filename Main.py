@@ -11,7 +11,7 @@ from modules.Login_System import *
 from modules.Load_Game import *
 from modules.Loading_bar import *
 
-oak_wood_color = (139, 69, 19) 
+oak_wood_color = (29, 89, 98)
 '''Main function'''
 
 

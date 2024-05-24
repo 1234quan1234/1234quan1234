@@ -1,7 +1,7 @@
 import pygame, sys
 import cfg
 def Loading_Bar(screen, cfg):
-    screen.fill((192, 192, 192))
+    screen.fill((29, 89, 98))
     font = pygame.font.Font(None, 36)
     text = font.render('Loading...', True, (0, 0, 0))
     text_rect = text.get_rect(center=(cfg.SCREENSIZE[0]//2, cfg.SCREENSIZE[1]//3))
