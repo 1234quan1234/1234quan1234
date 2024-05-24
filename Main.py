@@ -14,7 +14,6 @@ from modules.Loading_bar import *
 oak_wood_color = (139, 69, 19) 
 '''Main function'''
 
-        
 
 def main(cfg):
 	# intialization

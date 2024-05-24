@@ -25,7 +25,8 @@ def Interface_Game_Start(screen, cfg, Username, Password):
     Interface_Running = True
     while Interface_Running:
         screen.fill((192, 192, 192))
-
+        BackGround = Background('resources/images/tamvagiahuy.png', [0, 0])
+        screen.blit(BackGround.image, BackGround.rect)
         buttons = []
         
         buttons.append(Button(screen, ((cfg.SCREENSIZE[0]-200)//2, cfg.SCREENSIZE[1]//3), 'START', font))
@@ -61,6 +62,8 @@ def Interface_Game_Switch(screen, cfg):
     running = True
     while running:
         screen.fill((192, 192, 192))
+        BackGround = Background('resources/images/tamvagiahuy.png', [0, 0])
+        screen.blit(BackGround.image, BackGround.rect)
         next_button = Button(screen, ((cfg.SCREENSIZE[0]-200)//2, cfg.SCREENSIZE[1]//3), 'NEXT', font)
         main_menu_button = Button(screen, ((cfg.SCREENSIZE[0]-200)//2, cfg.SCREENSIZE[1]//2), 'MAIN MENU', font)
         quit_button = Button(screen, ((cfg.SCREENSIZE[0]-200)//2, (cfg.SCREENSIZE[1]//2)+(cfg.SCREENSIZE[1]//2-cfg.SCREENSIZE[1]//3)), 'QUIT', font)
@@ -90,6 +93,8 @@ def Interface_Difficulty(screen, cfg, Username, Password):
     running = True
     while running:
         screen.fill((192, 192, 192))
+        BackGround = Background('resources/images/tamvagiahuy.png', [0, 0])
+        screen.blit(BackGround.image, BackGround.rect)
         easy_button = Button(screen, ((cfg.SCREENSIZE[0]-200)//2, cfg.SCREENSIZE[1]//3), 'EASY', font)
         medium_button = Button(screen, ((cfg.SCREENSIZE[0]-200)//2, cfg.SCREENSIZE[1]//2), 'MEDIUM', font)
         hard_button = Button(screen, ((cfg.SCREENSIZE[0]-200)//2, (cfg.SCREENSIZE[1]//2)+(cfg.SCREENSIZE[1]//2-cfg.SCREENSIZE[1]//3)), 'HARD', font)
@@ -123,6 +128,8 @@ def Interface_Load_Game(screen, cfg, Username, Password):
 
     while running:
         screen.fill((192, 192, 192))
+        BackGround = Background('resources/images/tamvagiahuy.png', [0, 0])
+        screen.blit(BackGround.image, BackGround.rect)
         main_menu_button = Button(screen, ((cfg.SCREENSIZE[0]-200)//2, cfg.SCREENSIZE[1]//3), 'MAIN MENU', font)
         expanded_main_menu_button = main_menu_button.inflate(130, 130)
         Pass = Password
@@ -340,6 +347,8 @@ def Interface_Leaderboard(screen, cfg):
 
     font = pygame.font.SysFont('Consolas', 30)
     screen.fill(oak_wood_color)
+    BackGround = Background('resources/images/tamvagiahuy.png', [0, 0])
+    screen.blit(BackGround.image, BackGround.rect)
     # Create a box
     Leaderboard_Box = Box(screen, 200, 50, 800, 700, (192, 192, 0), (0,255,0), 3)
     # Create buttons  
