@@ -1,4 +1,5 @@
 import cfg
+import tkinter as tk
 import pygame
 import threading
 import pickle
@@ -30,7 +31,6 @@ def main(cfg):
 	
 	User_Info = load_users('Data_Users.pkl')
 	print(User_Info)
-	
 	# Record the number of levels
 	num_levels = 0
 	# Record the minimum steps to clear
