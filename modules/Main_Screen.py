@@ -13,6 +13,7 @@ from modules.Maze_Generator import *
 from modules.maze_solver import *
 from modules.Hero import *
 from modules.Leaderboard import *
+from modules.Sounds import *
 
 
 '''Game start / level switching / game end interface'''
@@ -42,15 +43,20 @@ def Interface_Game_Start(screen, cfg, Username, Password):
                 for i, button in enumerate(buttons):
                     expanded_button = button.inflate(130, 130)
                     if expanded_button.collidepoint(pygame.mouse.get_pos()):
+                        click_sound.play()
                         print("Button clicked") 
                         if i == len(buttons) - 1:  # If the last button (quit button) is clicked
+                            click_sound.play()
                             pygame.quit()
                             sys.exit(-1)
                         elif i == 1:  # Next_Button=
+                            click_sound.play()
                             return 'Load_Game'
                         elif i == 2:
+                            click_sound.play()
                             return 'Leaderboard'
                         else:
+                            click_sound.play()
                             return 'Difficulty' # If any other button is clicked
 
         pygame.display.update()
@@ -72,15 +78,19 @@ def Interface_Game_Switch(screen, cfg):
         expanded_quit_button = quit_button.inflate(130, 130)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                click_sound.play()
                 pygame.quit()
                 sys.exit(-1)
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if expanded_quit_button.collidepoint(pygame.mouse.get_pos()):
+                    click_sound.play()
                     pygame.quit()
                     sys.exit(-1)
                 elif expanded_next_button.collidepoint(pygame.mouse.get_pos()):
+                    click_sound.play()
                     return True
                 elif expanded_main_menu_button.collidepoint(pygame.mouse.get_pos()):
+                    click_sound.play()
                     return True
                     
 
@@ -105,16 +115,21 @@ def Interface_Difficulty(screen, cfg, Username, Password):
         expanded_main_menu_button = main_menu_button.inflate(130, 130)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                click_sound.play()
                 pygame.quit()
                 sys.exit(-1)
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if expanded_easy_button.collidepoint(pygame.mouse.get_pos()):
+                    click_sound.play()
                     return True, (20, 20), 'easy'
                 elif expanded_medium_button.collidepoint(pygame.mouse.get_pos()):
+                    click_sound.play()
                     return True, (40, 40), 'medium'
                 elif expanded_hard_button.collidepoint(pygame.mouse.get_pos()):
+                    click_sound.play()
                     return True, (100, 100), 'hard'
                 elif expanded_main_menu_button.collidepoint(pygame.mouse.get_pos()):
+                    click_sound.play()
                     Interface_Game_Start(screen, cfg, Username, Password)
 
         pygame.display.update()
@@ -160,6 +175,7 @@ def Interface_Load_Game(screen, cfg, Username, Password):
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                click_sound.play()
                 pygame.quit()
                 sys.exit(-1)
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
@@ -202,7 +218,7 @@ def Interface_Game_Play(screen, cfg, font, clock, maze_now, maze_solver, hero_no
             pygame.display.update()
     saving = None
     while True:
-            dt = clock.tick(cfg.FPS)
+        dt = clock.tick(cfg.FPS)
         screen.fill(oak_wood_color)
         is_move = False
         if A_On:
@@ -252,6 +268,7 @@ def Interface_Game_Play(screen, cfg, font, clock, maze_now, maze_solver, hero_no
                 keys = pygame.key.get_pressed()
                 mods = pygame.key.get_mods()
                 if event.key in key_to_direction and Auto_Off:
+                    moving_sound.play()
                     direction = key_to_direction[event.key]
                     is_move = hero_now.move(direction, maze_now)
                 elif event.key == pygame.K_ESCAPE:

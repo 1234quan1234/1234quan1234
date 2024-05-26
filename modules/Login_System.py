@@ -3,6 +3,7 @@ import sys
 from modules.Main_Screen import *
 from modules.Textbox import *
 from modules.Accounts import *
+from modules.Sounds import *
 
 def UserInterface(screen, cfg, mode):
     pygame.display.set_mode(cfg.SCREENSIZE)
@@ -28,11 +29,14 @@ def UserInterface(screen, cfg, mode):
                     sys.exit(-1)
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if expanded_exit_button.collidepoint(pygame.mouse.get_pos()):
+                        click_sound.play()
                         pygame.quit()
                         sys.exit(-1)
                     elif expanded_login_button.collidepoint(pygame.mouse.get_pos()):
+                        click_sound.play()
                         return UserInterface(screen, cfg, 'login')
                     elif expanded_register_button.collidepoint(pygame.mouse.get_pos()):
+                        click_sound.play()
                         return UserInterface(screen, cfg, 'register')
             pygame.display.update()
             clock.tick(cfg.FPS)
