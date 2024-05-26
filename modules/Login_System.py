@@ -58,6 +58,7 @@ def UserInterface(screen, cfg, mode):
                     sys.exit(-1)
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if expanded_login_button.collidepoint(pygame.mouse.get_pos()):
+                        click_sound.play()
                         entered_username = username_box.text
                         entered_password = password_box.text
                         if not entered_username or not entered_password:
@@ -67,6 +68,7 @@ def UserInterface(screen, cfg, mode):
                         else:
                             showText(screen, font, 'Invalid username or password', (255, 0, 0), (cfg.SCREENSIZE[0]//2-100, cfg.SCREENSIZE[1]//2+100))
                     elif expanded_return_button.collidepoint(pygame.mouse.get_pos()):
+                        click_sound.play()
                         return UserInterface(screen, cfg, 'interface')
                 username_box.check_focus(event)
                 password_box.check_focus(event)
@@ -100,6 +102,7 @@ def UserInterface(screen, cfg, mode):
                     sys.exit(-1)
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if expanded_register_button.collidepoint(pygame.mouse.get_pos()):
+                        click_sound.play()
                         entered_username = username_box.text
                         entered_password = password_box.text
                         confirm_password = confirm_password_box.text
@@ -111,6 +114,7 @@ def UserInterface(screen, cfg, mode):
                         else:
                             showText(screen, font, 'Passwords do not match or Username already exists', (255, 0, 0), (cfg.SCREENSIZE[0]//2-100, cfg.SCREENSIZE[1]//2+100))
                     elif expanded_return_button.collidepoint(pygame.mouse.get_pos()):
+                        click_sound.play()
                         return UserInterface(screen, cfg, 'interface')
                 username_box.check_focus(event)
                 password_box.check_focus(event)
