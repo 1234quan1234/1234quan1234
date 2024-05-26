@@ -30,7 +30,7 @@ def main(cfg):
 	
 	User_Info = load_users('Data_Users.pkl')
 	print(User_Info)
-	
+	Fixed_Difficulty_Level = None
 	# Record the number of levels
 	num_levels = 0
 	# Record the minimum steps to clear
@@ -38,20 +38,19 @@ def main(cfg):
 	# Cycle through levels
 	while True:
 		if Siuu:
-		# Interface_Load_Game(screen, cfg)
-		# Interface_Difficulty(screen, cfg)
-			MAZESIZE, BLOCKSIZE, maze_now, maze_solver, hero_now, num_steps, time, Difficulty_Level = Interface(screen, cfg, Username, Password)
-					
+			if Fixed_Difficulty_Level is not None:
+				MAZESIZE, BLOCKSIZE, maze_now, maze_solver, hero_now, num_steps, time, Difficulty_Level = Interface(screen, cfg, Username, Password, Fixed_Difficulty_Level)
+			else:
+				MAZESIZE, BLOCKSIZE, maze_now, maze_solver, hero_now, num_steps, time, Difficulty_Level = Interface(screen, cfg, Username, Password)				
 		Loading_Bar(screen, cfg)
 		num_levels += 1
 		clock = pygame.time.Clock()
 		screen = pygame.display.set_mode(cfg.SCREENSIZE)
-		# --Randomly generate level maps
-		
+		# --Randomly generate level maps	
 		# --Main loop within the level
 		solution = None
 		draw_solution=False
-		Interface_Game_Play(screen, cfg, font, clock, maze_now, maze_solver, hero_now, draw_solution, num_steps, time, num_levels, best_scores, Difficulty_Level, BLOCKSIZE, oak_wood_color, Username, Password)
+		Game_Play=Interface_Game_Play(screen, cfg, font, clock, maze_now, maze_solver, hero_now, draw_solution, num_steps, time, num_levels, best_scores, Difficulty_Level, BLOCKSIZE, oak_wood_color, Username, Password)
 		# ---Update Best Score
 		if best_scores == 'None':
 			best_scores = num_steps
@@ -59,9 +58,13 @@ def main(cfg):
 			if best_scores > num_steps:
 				best_scores = num_steps
 		# --Level switching
-		Interface_Game_Switch(screen, cfg)
-
-
+		if Game_Play == 'switch':
+			if Interface_Game_Switch(screen, cfg) == False:
+				Fixed_Difficulty_Level = Difficulty_Level
+			else:
+				Fixed_Difficulty_Level = None
+		elif Game_Play == 'main_menu':
+			Interface(screen, cfg, Username, Password)
 
 '''run'''
 if __name__ == '__main__':

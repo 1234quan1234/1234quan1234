@@ -20,9 +20,9 @@ def UserInterface(screen, cfg, mode):
             login_button = Button(screen, ((cfg.SCREENSIZE[0]-200)//2, cfg.SCREENSIZE[1]//3), 'LOGIN', font)
             register_button = Button(screen, ((cfg.SCREENSIZE[0]-200)//2, cfg.SCREENSIZE[1]//2), 'REGISTER', font)
             exit_button = Button(screen, ((cfg.SCREENSIZE[0]-200)//2, (cfg.SCREENSIZE[1]//2+(cfg.SCREENSIZE[1]//2-cfg.SCREENSIZE[1]//3))), 'EXIT', font)
-            expanded_login_button = login_button.inflate(130, 130)
-            expanded_register_button = register_button.inflate(130, 130)
-            expanded_exit_button = exit_button.inflate(130, 130)
+            expanded_login_button = login_button.inflate(100, 40)
+            expanded_register_button = register_button.inflate(100, 40)
+            expanded_exit_button = exit_button.inflate(100, 40)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -50,8 +50,8 @@ def UserInterface(screen, cfg, mode):
             screen.blit(BackGround.image, BackGround.rect)
             login_button = Button(screen, ((cfg.SCREENSIZE[0]-200)//2,(cfg.SCREENSIZE[1]//2)+(cfg.SCREENSIZE[1]//2-cfg.SCREENSIZE[1]//3)), 'LOGIN', font)
             return_button = Button(screen, ((cfg.SCREENSIZE[0]-200)//2, (cfg.SCREENSIZE[1]//2)+2*(cfg.SCREENSIZE[1]//2-cfg.SCREENSIZE[1]//3)), 'RETURN', font)
-            expanded_login_button = login_button.inflate(130, 130)  
-            expanded_return_button = return_button.inflate(130, 130)  
+            expanded_login_button = login_button.inflate(100, 40)  
+            expanded_return_button = return_button.inflate(100, 40)  
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -92,8 +92,8 @@ def UserInterface(screen, cfg, mode):
             screen.blit(BackGround.image, BackGround.rect)
             register_button = Button(screen, ((cfg.SCREENSIZE[0]-200)//2, (cfg.SCREENSIZE[1]//2)+2*(cfg.SCREENSIZE[1]//2-cfg.SCREENSIZE[1]//3)), 'REGISTER', font)
             return_button = Button(screen, ((cfg.SCREENSIZE[0]-700)//2, (cfg.SCREENSIZE[1]//2)+2*(cfg.SCREENSIZE[1]//2-cfg.SCREENSIZE[1]//3)), 'RETURN', font)
-            expanded_register_button = register_button.inflate(130, 130)
-            expanded_return_button = return_button.inflate(130, 130)
+            expanded_register_button = register_button.inflate(100, 40)
+            expanded_return_button = return_button.inflate(100, 40)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()

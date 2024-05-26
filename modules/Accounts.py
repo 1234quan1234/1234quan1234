@@ -30,7 +30,7 @@ def save_users(username, password, filename, maze_data=None):
                     'time': maze_data['time'],
                     'Difficulty': maze_data['Difficulty'],
                 }
-                break
+                return True
     updated_users[username] = user_info
 
     try:
