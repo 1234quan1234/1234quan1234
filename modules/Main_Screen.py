@@ -87,12 +87,8 @@ def Interface_Game_Switch(screen, cfg):
                     pygame.quit()
                     sys.exit(-1)
                 elif expanded_next_button.collidepoint(pygame.mouse.get_pos()):
-<<<<<<< HEAD
                     click_sound.play()
                     return True
-=======
-                    return False
->>>>>>> 4b798380afb401b2eb9994c24709731e81ef09b9
                 elif expanded_main_menu_button.collidepoint(pygame.mouse.get_pos()):
                     click_sound.play()
                     return True
