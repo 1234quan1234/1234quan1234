@@ -232,6 +232,23 @@ def Interface_Game_Play(screen, cfg, font, clock, maze_now, maze_solver, hero_no
         showText(screen, font, f'PLAYING MODE: {Playing_Mode[0] if Auto_Off else Playing_Mode[1]}', (0, 0, 0), (15, 240))
         showText(screen, font, f'PATHFINDING ALGORITHM: {Pathfinding_Algorithm[0] if A_On else Pathfinding_Algorithm[1]}', (0, 0, 0), (15, 400))
         showText(screen, font, f'CUSTOMIZE: {Customize_Mode[1] if Customize_Off else Customize_Mode[0]}', (0, 0, 0), (15, 560))
+        Content_Box2 = Box(screen, 950, 100, 250, 600, (255, 255, 255), (0,255,0), 3)
+        Content_Box2.draw()
+        showText(screen, font, f'Press "Up, Down, Left, Right"', (0, 0, 0), (965, 220))
+        showText(screen, font, f'Keys to move.', (0, 0, 0), (965, 250))
+
+        showText(screen, font, f'Press "1" Key to change', (0, 0, 0), (965, 310))
+        showText(screen, font, f'playing mode.', (0, 0, 0), (965, 340))
+        
+        showText(screen, font, f'Press "2" Key to change', (0, 0, 0), (965, 400))
+        showText(screen, font, f'Algorithm.', (0, 0, 0), (965, 430))
+        
+        showText(screen, font, f'Press "3" Key to enable', (0, 0, 0), (965, 490))
+        showText(screen, font, f'Customize.', (0, 0, 0), (965, 520))
+        
+        showText(screen, font, f'Press "Space" Key to show hint.', (0, 0, 0), (965, 580))
+        showText(screen, font, f'Press "Backspace" Key to hide hint.', (0, 0, 0), (965, 610))
+        
         display_resized_image(screen, 'resources/images/jerry.png', (maze_solver.end.coordinate[0] * BLOCKSIZE + cfg.BORDERSIZE[0], maze_solver.end.coordinate[1] * BLOCKSIZE + cfg.BORDERSIZE[1] + 17), BLOCKSIZE)
         if saving:
             showText(screen, font, 'SAVED SUCCESSFULLY!', (0, 0, 0), (10, 260))    
