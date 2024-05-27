@@ -4,17 +4,19 @@ from modules.Main_Screen import *
 from modules.Textbox import *
 from modules.Accounts import *
 from modules.Sounds import *
-
+play_music = True
 def UserInterface(screen, cfg, mode):
+    global play_music
     pygame.display.set_mode(cfg.SCREENSIZE)
     font = pygame.font.SysFont('Consolas', 30)
     font_small = pygame.font.SysFont('Consolas', 20)
     clock = pygame.time.Clock()
     valid_users = load_users('Data_Users.pkl')
-
     if mode == 'interface':
+        if play_music:
+            Login_music.play(-1)
+        play_music = False
         while True:
-            screen.fill((192, 192, 192))
             BackGround = Background('resources/images/tamvagiahuy.png', [0, 0])
             screen.blit(BackGround.image, BackGround.rect)
             login_button = Button(screen, ((cfg.SCREENSIZE[0]-200)//2, cfg.SCREENSIZE[1]//3), 'LOGIN', font)
@@ -45,7 +47,6 @@ def UserInterface(screen, cfg, mode):
         username_box = TextBox(screen, ((cfg.SCREENSIZE[0]-200)//2, cfg.SCREENSIZE[1]//3), (200, 50)) 
         password_box = TextBox(screen, ((cfg.SCREENSIZE[0]-200)//2, cfg.SCREENSIZE[1]//2), (200, 50))
         while True:
-            screen.fill((192, 192, 192))
             BackGround = Background('resources/images/tamvagiahuy.png', [0, 0])
             screen.blit(BackGround.image, BackGround.rect)
             login_button = Button(screen, ((cfg.SCREENSIZE[0]-200)//2,(cfg.SCREENSIZE[1]//2)+(cfg.SCREENSIZE[1]//2-cfg.SCREENSIZE[1]//3)), 'LOGIN', font)
@@ -62,11 +63,12 @@ def UserInterface(screen, cfg, mode):
                         entered_username = username_box.text
                         entered_password = password_box.text
                         if not entered_username or not entered_password:
-                            showText(screen, font, 'Username or password cannot be empty', (255, 0, 0), (cfg.SCREENSIZE[0]//2-100, cfg.SCREENSIZE[1]//2+100))
+                            showText(screen, font, 'Username or password cannot be empty', (255, 0, 0), (cfg.SCREENSIZE[0]//2-300, cfg.SCREENSIZE[1]//2+100))
                         elif entered_username in valid_users and valid_users[entered_username]['password'] == entered_password:
+                            Login_music.stop()
                             return True, entered_username, entered_password
                         else:
-                            showText(screen, font, 'Invalid username or password', (255, 0, 0), (cfg.SCREENSIZE[0]//2-100, cfg.SCREENSIZE[1]//2+100))
+                            showText(screen, font, 'Invalid username or password', (255, 0, 0), (cfg.SCREENSIZE[0]//2-215, cfg.SCREENSIZE[1]//2+100))
                     elif expanded_return_button.collidepoint(pygame.mouse.get_pos()):
                         click_sound.play()
                         return UserInterface(screen, cfg, 'interface')
@@ -85,15 +87,14 @@ def UserInterface(screen, cfg, mode):
             clock.tick(cfg.FPS)
 
     elif mode == 'register':
-        username_box = TextBox(screen, ((cfg.SCREENSIZE[0]-200)//2, cfg.SCREENSIZE[1]//3), (200, 50)) 
-        password_box = TextBox(screen, ((cfg.SCREENSIZE[0]-200)//2, cfg.SCREENSIZE[1]//2), (200, 50))
-        confirm_password_box = TextBox(screen, ((cfg.SCREENSIZE[0]-200)//2, (cfg.SCREENSIZE[1]//2)+(cfg.SCREENSIZE[1]//2-cfg.SCREENSIZE[1]//3)), (200, 50))
+        username_box = TextBox(screen, ((cfg.SCREENSIZE[0]-200)//2, cfg.SCREENSIZE[1]//3-(cfg.SCREENSIZE[1]//2-cfg.SCREENSIZE[1]//3)), (200, 50)) 
+        password_box = TextBox(screen, ((cfg.SCREENSIZE[0]-200)//2, cfg.SCREENSIZE[1]//3), (200, 50))
+        confirm_password_box = TextBox(screen, ((cfg.SCREENSIZE[0]-200)//2, (cfg.SCREENSIZE[1]//2)), (200, 50))
         while True:
-            screen.fill((192, 192, 192))
             BackGround = Background('resources/images/tamvagiahuy.png', [0, 0])
             screen.blit(BackGround.image, BackGround.rect)
-            register_button = Button(screen, ((cfg.SCREENSIZE[0]-200)//2, (cfg.SCREENSIZE[1]//2)+2*(cfg.SCREENSIZE[1]//2-cfg.SCREENSIZE[1]//3)), 'REGISTER', font)
-            return_button = Button(screen, ((cfg.SCREENSIZE[0]-700)//2, (cfg.SCREENSIZE[1]//2)+2*(cfg.SCREENSIZE[1]//2-cfg.SCREENSIZE[1]//3)), 'RETURN', font)
+            register_button = Button(screen, ((cfg.SCREENSIZE[0]-200)//2, (cfg.SCREENSIZE[1]//2)+(cfg.SCREENSIZE[1]//2-cfg.SCREENSIZE[1]//3)), 'REGISTER', font)
+            return_button = Button(screen, ((cfg.SCREENSIZE[0]-200)//2, (cfg.SCREENSIZE[1]//2)+2*(cfg.SCREENSIZE[1]//2-cfg.SCREENSIZE[1]//3)), 'RETURN', font)
             expanded_register_button = register_button.inflate(100, 40)
             expanded_return_button = return_button.inflate(100, 40)
             for event in pygame.event.get():
@@ -107,14 +108,16 @@ def UserInterface(screen, cfg, mode):
                         entered_password = password_box.text
                         confirm_password = confirm_password_box.text
                         if not entered_username or not entered_password or not confirm_password:
-                            showText(screen, font, 'Username, password or confirm password cannot be empty', (255, 0, 0), (cfg.SCREENSIZE[0]//2-100, cfg.SCREENSIZE[1]//2+100))
+                            showText(screen, font, 'Username, password or confirm password cannot be empty', (255, 0, 0), (cfg.SCREENSIZE[0]//2-450, cfg.SCREENSIZE[1]//2+100))
                         elif entered_username not in valid_users and entered_password == confirm_password:
                             save_users(entered_username, entered_password, 'Data_Users.pkl')
+                            Login_music.stop()
                             return True, entered_username, entered_password
                         else:
-                            showText(screen, font, 'Passwords do not match or Username already exists', (255, 0, 0), (cfg.SCREENSIZE[0]//2-100, cfg.SCREENSIZE[1]//2+100))
+                            showText(screen, font, 'Passwords do not match or Username already exists', (255, 0, 0), (cfg.SCREENSIZE[0]//2-400, cfg.SCREENSIZE[1]//2+100))
                     elif expanded_return_button.collidepoint(pygame.mouse.get_pos()):
                         click_sound.play()
+                        
                         return UserInterface(screen, cfg, 'interface')
                 username_box.check_focus(event)
                 password_box.check_focus(event)
@@ -127,11 +130,11 @@ def UserInterface(screen, cfg, mode):
             password_box.draw()
             confirm_password_box.draw()
             if username_box.text == '':
-                showText(screen, font_small, 'Enter username', (128, 128, 128), ((cfg.SCREENSIZE[0]-200)//2, cfg.SCREENSIZE[1]//3+15))
+                showText(screen, font_small, 'Enter username', (128, 128, 128), ((cfg.SCREENSIZE[0]-200)//2, cfg.SCREENSIZE[1]//3-(cfg.SCREENSIZE[1]//2-cfg.SCREENSIZE[1]//3)+15))
             if password_box.text == '':
-                showText(screen, font_small, 'Enter password', (128, 128, 128), ((cfg.SCREENSIZE[0]-200)//2, cfg.SCREENSIZE[1]//2+15))
+                showText(screen, font_small, 'Enter password', (128, 128, 128), ((cfg.SCREENSIZE[0]-200)//2, cfg.SCREENSIZE[1]//3+15))
             if confirm_password_box.text == '':
-                showText(screen, font_small, 'Confirm password', (128, 128, 128), ((cfg.SCREENSIZE[0]-200)//2, (cfg.SCREENSIZE[1]//2)+(cfg.SCREENSIZE[1]//2-cfg.SCREENSIZE[1]//3)+15))
+                showText(screen, font_small, 'Confirm password', (128, 128, 128), ((cfg.SCREENSIZE[0]-200)//2, (cfg.SCREENSIZE[1]//2)+15))
             pygame.display.update()
             clock.tick(cfg.FPS)
 

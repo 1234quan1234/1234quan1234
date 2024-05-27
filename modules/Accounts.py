@@ -30,7 +30,8 @@ def save_users(username, password, filename, maze_data=None):
                     'time': maze_data['time'],
                     'Difficulty': maze_data['Difficulty'],
                 }
-                return True
+                break  # Exit the loop once the data is saved
+
     updated_users[username] = user_info
 
     try:
@@ -40,7 +41,7 @@ def save_users(username, password, filename, maze_data=None):
         logging.error(f"An error occurred while saving users: {str(e)}")
         return False
 
-    return True
+    return True 
 def update_pickle_file(user_data, filename):
     with open(filename, 'wb') as f:
         pickle.dump(user_data, f)

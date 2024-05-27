@@ -32,7 +32,7 @@ def Button(screen, position, text, font, buttoncolor=(242, 197, 40), clickedcolo
     rect.centerx, rect.centery = left + bwidth / 2, top + bheight / 2
     return screen.blit(text_render, rect)
 
-def HalfButton(screen, position, text, font, buttoncolor=(120, 120, 120), clickedcolor=(90, 90, 90), linecolor=(20, 20, 20), textcolor=(255, 255, 255), bwidth=100, bheight=50):
+def HalfButton(screen, position, text, font, buttoncolor=(242, 197, 40), clickedcolor=(90, 90, 90), linecolor=(20, 20, 20), textcolor=(255, 255, 255), bwidth=100, bheight=50):
     left, top = position
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()

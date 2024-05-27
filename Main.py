@@ -8,7 +8,6 @@ from modules.Maze_Generator import *
 from modules.Hero import *
 from modules.maze_solver import *
 from modules.Login_System import *
-from modules.Load_Game import *
 from modules.Loading_bar import *
 
 oak_wood_color = (29, 89, 98)
@@ -24,7 +23,7 @@ def main(cfg):
 	# pygame.mixer.music.play(-1, 0.0)
 	screen = pygame.display.set_mode(cfg.SCREENSIZE)
 	pygame.display.set_caption('2D MAZE')
-	font = pygame.font.SysFont('resources/fonts/OpenSans-Regular', 20)
+	font = pygame.font.SysFont('Consolas', 15)
 	
 	Siuu, Username, Password = UserInterface(screen, cfg, 'interface')
 	

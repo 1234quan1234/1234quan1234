@@ -8,22 +8,26 @@ import time
 import Main
 from modules.Textbox import *
 from modules.Accounts import *
-from modules.Load_Game import *
 from modules.Maze_Generator import *
 from modules.maze_solver import *
 from modules.Hero import *
 from modules.Leaderboard import *
 from modules.Sounds import *
 
-
+play_main_music = True
 '''Game start / level switching / game end interface'''
 
 
 def Interface_Game_Start(screen, cfg, Username, Password):
+    global play_main_music
     pygame.display.set_mode(cfg.SCREENSIZE)
     font = pygame.font.SysFont('Consolas', 30)
     clock = pygame.time.Clock()
     Interface_Running = True
+    play_main_music = play_main_music if 'play_main_music' in globals() else True
+    if play_main_music:
+        Main_music.play(-1)
+    play_main_music = False
     while Interface_Running:
         screen.fill((192, 192, 192))
         BackGround = Background('resources/images/tamvagiahuy.png', [0, 0])
@@ -65,10 +69,11 @@ def Interface_Game_Switch(screen, cfg):
     pygame.display.set_mode(cfg.SCREENSIZE)
     font = pygame.font.SysFont('Consolas', 30)
     clock = pygame.time.Clock()
+    Main_music.stop()
+    winnng_sound.play()
     running = True
     while running:
-        screen.fill((192, 192, 192))
-        BackGround = Background('resources/images/tamvagiahuy.png', [0, 0])
+        BackGround = Background('resources/images/Complete.png', [-50, -50])
         screen.blit(BackGround.image, BackGround.rect)
         next_button = Button(screen, ((cfg.SCREENSIZE[0]-200)//2, cfg.SCREENSIZE[1]//3), 'NEXT', font)
         main_menu_button = Button(screen, ((cfg.SCREENSIZE[0]-200)//2, cfg.SCREENSIZE[1]//2), 'MAIN MENU', font)
@@ -88,9 +93,13 @@ def Interface_Game_Switch(screen, cfg):
                     sys.exit(-1)
                 elif expanded_next_button.collidepoint(pygame.mouse.get_pos()):
                     click_sound.play()
-                    return True
+                    winnng_sound.stop()
+                    Main_music.play(-1)
+                    return False
                 elif expanded_main_menu_button.collidepoint(pygame.mouse.get_pos()):
                     click_sound.play()
+                    winnng_sound.stop()
+                    Main_music.play(-1)
                     return True
                     
 
@@ -199,6 +208,8 @@ def Interface_Load_Game(screen, cfg, Username, Password):
         pygame.display.update()
         clock.tick(cfg.FPS)
 def Interface_Game_Play(screen, cfg, font, clock, maze_now, maze_solver, hero_now, draw_solution, num_steps, start_time, num_levels, best_scores, Difficulty_Level, BLOCKSIZE, oak_wood_color, Username, Password):
+    #Miscellaneous
+    superFont = pygame.font.SysFont('Consolas', 50)
     #Stuffs for timer
     timer_running = True
     if start_time is None:
@@ -235,13 +246,37 @@ def Interface_Game_Play(screen, cfg, font, clock, maze_now, maze_solver, hero_no
             end_time = time.time()
             elapsed_time = end_time - start_time
             minutes, seconds = divmod(elapsed_time, 60)
-        
+        # Guiding box
+        Guiding_Box = Box(screen, 950, 100, 250, 600, (0, 0, 128), (0,255,0), 3)
+        Guiding_Box.draw()
+        showText(screen, superFont, 'GUIDE', (242, 197, 40), (1015, 110))
+        showText(screen, font, 'Press SPACE to show', (242, 197, 40), (965, 160))
+        showText(screen, font, 'the solution', (242, 197, 40), (965, 180))
+
+        showText(screen, font, 'Press BACKSPACE to hide', (242, 197, 40), (965, 230))
+        showText(screen, font, 'the solution', (242, 197, 40), (965, 250))
+
+        showText(screen, font, 'Press ESCAPE to temporarily', (242, 197, 40), (965, 300))
+        showText(screen, font, 'stop the game', (242, 197, 40), (965, 320))
+
+        showText(screen, font, 'Press CTRL + S to', (242, 197, 40), (965, 370))
+        showText(screen, font, 'save the game', (242, 197, 40), (965, 390))
+
+        showText(screen, font, 'Press 1 to switch', (242, 197, 40), (965, 440))
+        showText(screen, font, 'playing mode', (242, 197, 40), (965, 460))
+
+        showText(screen, font, 'Press 2 to switch', (242, 197, 40), (965, 510))
+        showText(screen, font, 'pathfinding algorithm', (242, 197, 40), (965, 530))
+
+        showText(screen, font, 'Press 3 to switch', (242, 197, 40), (965, 580))
+        showText(screen, font, 'customize mode', (242, 197, 40), (965, 600))
+        # ----↓
         #Content box
         Playing_Mode = ['Manual', 'Auto']
         Pathfinding_Algorithm = ['A*', 'BFS']
         Customize_Mode = ['Enable', 'Disable'] 
         Help = ['ON', 'OFF'] 
-        Saving_Content=['SAVED SUCCESSFULLY!', 'FAILED TO SAVE! Please delete a maze before saving a new one.']
+        Saving_Content=['SAVED SUCCESSFULLY!', 'FAILED TO SAVE!']
         Content_Box = Box(screen, 0, 100, 250, 600, (0, 0, 128), (0,255,0), 3)
         Content_Box.draw()
         showText(screen, font, 'LEVEL DONE: %d' % num_levels, (242, 197, 40), (10, 110))
@@ -252,11 +287,13 @@ def Interface_Game_Play(screen, cfg, font, clock, maze_now, maze_solver, hero_no
         showText(screen, font, f'PATHFINDING ALGORITHM: {Pathfinding_Algorithm[0] if A_On else Pathfinding_Algorithm[1]}', (242, 197, 40), (10, 360))
         showText(screen, font, f'HELP: {Help[0] if Help_On else Help[1]}', (242, 197, 40), (10, 410))
         showText(screen, font, f'CUSTOMIZE: {Customize_Mode[1] if Customize_Off else Customize_Mode[0]}', (242, 197, 40), (10, 460))
+        showText(screen, font, f'{Saving_Content[0] if saving else (Saving_Content[1] if saving == False else "")}', (242, 197, 40), (10, 510))
+        showText(screen, font, f'{"Please delete a maze" if saving == False else ""}', (242, 197, 40), (10, 560))
+        showText(screen, font, f'{"to save a new one" if saving == False else ""}', (242, 197, 40), (10, 610))
         display_resized_image(screen, 'resources/images/jerry.png', (maze_solver.end.coordinate[0] * BLOCKSIZE + cfg.BORDERSIZE[0], maze_solver.end.coordinate[1] * BLOCKSIZE + cfg.BORDERSIZE[1] + 17), BLOCKSIZE)
-        if saving:
-            showText(screen, font, 'SAVED SUCCESSFULLY!', (0, 0, 0), (10, 510))    
-        elif saving == False:
-            showText(screen, font, 'FAILED TO SAVE! Please delete a maze before saving a new one.', (0, 0, 0), (10, 510))
+        
+        
+        
         # Start and end signs
         key_to_direction = {
             pygame.K_UP: 'up',
@@ -294,6 +331,7 @@ def Interface_Game_Play(screen, cfg, font, clock, maze_now, maze_solver, hero_no
                     Help_On = False
                 elif mods & pygame.KMOD_CTRL and keys[pygame.K_s]:
                     saving = save_users(Username, Password, 'Data_Users.pkl', {'maze_now': maze_now, 'maze_solver': maze_solver, 'hero_now': hero_now, 'num_steps': num_steps, "time": elapsed_time,"Difficulty": Difficulty_Level})
+                    print(saving)
                 elif event.key == pygame.K_ESCAPE:
                     timer_running = not timer_running
                     if timer_running:
@@ -304,6 +342,7 @@ def Interface_Game_Play(screen, cfg, font, clock, maze_now, maze_solver, hero_no
                         elapsed_time = time.time() - start_time
                     a = Interface_Pause(screen, cfg)
                     if a == 'continue':
+                        Main_music.play(-1)
                         timer_running = not timer_running
                         # Resume the timer by adjusting the start_time
                         start_time = time.time() - elapsed_time
@@ -417,9 +456,12 @@ def Interface(screen, cfg, Username, Password, Game_Start = None):
             return MAZESIZE, BLOCKSIZE, maze_now, maze_solver, hero_now, num_steps, time, Difficulty_Level 
 def Interface_Pause(screen, cfg):
     pygame.display.set_mode(cfg.SCREENSIZE)
+    Main_music.stop()
     menu_running = True
     font = pygame.font.SysFont('Consolas', 30)
     screen.fill((192, 192, 192))
+    BackGround = Background('resources/images/Waiting.png', [0, 0])
+    screen.blit(BackGround.image, BackGround.rect)
     while menu_running:
         # Draw the pause menu
         continue_button = Button(screen, ((cfg.SCREENSIZE[0]-200)//2, cfg.SCREENSIZE[1]//3), "CONTINUE", font)
@@ -433,8 +475,10 @@ def Interface_Pause(screen, cfg):
                 
                 # Check for button clicks
                 if continue_button.collidepoint(pygame.mouse.get_pos()):
+                    Main_music.play(-1)
                     return 'continue'
                 elif main_menu_button.collidepoint(pygame.mouse.get_pos()):
+                    Main_music.play(-1)
                     return 'main_menu'
 
         pygame.display.update()
