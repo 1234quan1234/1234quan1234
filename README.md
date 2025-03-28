@@ -1,4 +1,2 @@
-- Chữ hiện ra khi đăng nhập hay đăng ký thất bại
-- Chữ hiện ra khi lưu file thành công
-- Ảnh khi hoàn thành trò chơi
-- Âm thanh trò chơi (tiếng click, tiếng nút bấm, tiếng nhân vật di chuyển, tiếng khi nhân vật hoàn thành trò chơi)
+CR7 >>>>>> Messi
+
